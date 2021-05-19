@@ -5,20 +5,27 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace TBD_Magazin
 {
-    public partial class CategoriesAndManufacturers : Form
+    public partial class WorkersAndRoles : Form
     {
-        public CategoriesAndManufacturers()
+        public WorkersAndRoles()
         {
             InitializeComponent();
         }
 
-        private void CategoriesAndManufacturers_Load(object sender, EventArgs e)
+        private void WorkersAndRoles_Load(object sender, EventArgs e)
         {
             dataGridView1.Columns.Add("ID", "ID");
-            dataGridView1.Columns.Add("Name", "Наименование");
+            dataGridView1.Columns.Add("FullName", "ФИО");
+            dataGridView1.Columns.Add("DateOfBirth", "Дата рождения");
+            dataGridView1.Columns.Add("PhoneNumber", "Телефон");
+            dataGridView1.Columns.Add("Address", "Адрес");
+            dataGridView1.Columns.Add("Passport", "Паспортные данные");
+            dataGridView1.Columns.Add("Role", "Должность");
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -37,16 +44,16 @@ namespace TBD_Magazin
         public void RefreshObject1()
         {
             dataGridView1.Rows.Clear();
-            foreach (var item in MainForm.Database.Categories)
+            foreach (var item in MainForm.Database.Workers.Include(w => w.Role))
             {
-                dataGridView1.Rows.Add(item.id, item.Name);
+                dataGridView1.Rows.Add(item.id, item.FullName, item.DateOfBirth.ToShortDateString(), item.PhoneNumber, item.Address, item.PhoneNumber, item.Role.Name);
             }
         }
 
         public void RefreshObject2()
         {
             dataGridView2.Rows.Clear();
-            foreach (var item in MainForm.Database.Manufacturers)
+            foreach (var item in MainForm.Database.Roles)
             {
                 dataGridView2.Rows.Add(item.id, item.Name);
             }
@@ -54,20 +61,8 @@ namespace TBD_Magazin
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string input = "";
-            if (ShowInputDialog(ref input) == DialogResult.Cancel || input == "") return;
-            try
-            {
-                DbSets.Category category = new DbSets.Category { Name = input };
-                MainForm.Database.Categories.Add(category);
-                MainForm.Database.SaveChanges();
-                MessageBox.Show("Категория добавлена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                RefreshObject1();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Ошибка! Что-то пошло не так.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            AddWorker addWorker = new AddWorker();
+            addWorker.Show();
         }
         private void button4_Click(object sender, EventArgs e)
         {
@@ -75,10 +70,10 @@ namespace TBD_Magazin
             if(ShowInputDialog(ref input) == DialogResult.Cancel || input == "") return;
             try
             {
-                DbSets.Manufacturer manufacturer = new DbSets.Manufacturer { Name = input };
-                MainForm.Database.Manufacturers.Add(manufacturer);
+                DbSets.Role role = new DbSets.Role { Name = input };
+                MainForm.Database.Roles.Add(role);
                 MainForm.Database.SaveChanges();
-                MessageBox.Show("Производитель добавлен!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Должность добавлена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 RefreshObject2();
             }
             catch (Exception)
@@ -100,25 +95,9 @@ namespace TBD_Magazin
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
-            object oid = dataGridView1.Rows[e.RowIndex].Cells[0].Value;
-            if (oid == null) return;
-            int id = Convert.ToInt32(oid.ToString());
-
-            try
-            {
-                DbSets.Category category = MainForm.Database.Categories.Find(id);
-                string input = category.Name;
-                if (ShowInputDialog(ref input) == DialogResult.Cancel || input == "" || input == category.Name) return;
-                category.Name = input;
-                MainForm.Database.Categories.Update(category);
-                MainForm.Database.SaveChanges();
-                MessageBox.Show("Категория обновлена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                RefreshObject1();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Ошибка! Что-то пошло не так.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            object id = dataGridView1.Rows[e.RowIndex].Cells[0].Value;
+            if (id == null) return;
+            EditWorker editWorker = new EditWorker(Convert.ToInt32(id.ToString()));
         }
 
 
@@ -133,13 +112,13 @@ namespace TBD_Magazin
 
             try
             {
-                DbSets.Manufacturer manufacturer = MainForm.Database.Manufacturers.Find(id);
-                string input = manufacturer.Name;
-                if (ShowInputDialog(ref input) == DialogResult.Cancel || input == "" || input == manufacturer.Name) return;
-                manufacturer.Name = input;
-                MainForm.Database.Manufacturers.Update(manufacturer);
+                DbSets.Role role = MainForm.Database.Roles.Find(id);
+                string input = role.Name;
+                if (ShowInputDialog(ref input) == DialogResult.Cancel || input == "" || input == role.Name) return;
+                role.Name = input;
+                MainForm.Database.Roles.Update(role);
                 MainForm.Database.SaveChanges();
-                MessageBox.Show("Производитель обновлен!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Должность обновлена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 RefreshObject2();
             }
             catch (Exception)

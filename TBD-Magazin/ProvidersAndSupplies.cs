@@ -8,17 +8,19 @@ using System.Windows.Forms;
 
 namespace TBD_Magazin
 {
-    public partial class CategoriesAndManufacturers : Form
+    public partial class ProvidersAndSupplies : Form
     {
-        public CategoriesAndManufacturers()
+        public ProvidersAndSupplies()
         {
             InitializeComponent();
         }
 
-        private void CategoriesAndManufacturers_Load(object sender, EventArgs e)
+        private void ProvidersAndSupplies_Load(object sender, EventArgs e)
         {
             dataGridView1.Columns.Add("ID", "ID");
-            dataGridView1.Columns.Add("Name", "Наименование");
+            dataGridView1.Columns.Add("Date", "Дата");
+            dataGridView1.Columns.Add("Manager", "Менеджер");
+            dataGridView1.Columns.Add("Provider", "Поставщик");
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -139,7 +141,7 @@ namespace TBD_Magazin
                 manufacturer.Name = input;
                 MainForm.Database.Manufacturers.Update(manufacturer);
                 MainForm.Database.SaveChanges();
-                MessageBox.Show("Производитель обновлен!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Производитель обновлена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 RefreshObject2();
             }
             catch (Exception)

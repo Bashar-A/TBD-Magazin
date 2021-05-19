@@ -26,7 +26,8 @@ namespace TBD_Magazin.DbSets
         public string Passport { get; set; }
 
         [Column("Должность_id")]
-        public Role WorkerRole { get; set; }
+        public int RoleId { get; set; }
+        public Role Role { get; set; }
 
 
     }
