@@ -26,10 +26,13 @@ namespace TBD_Magazin.DbSets
         public int Quantity { get; set; }
 
         [Column("Производитель_id")]
-        public Manufacturer ProductManufacturer { get; set; }
+        public int ManufacturerId { get; set; }
+
+        public Manufacturer Manufacturer { get; set; }
 
         [Column("Категория_id")]
-        public Category ProductCategory { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
 
     }

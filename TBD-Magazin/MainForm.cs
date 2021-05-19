@@ -25,8 +25,10 @@ namespace TBD_Magazin
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CategoriesAndManufacturers categoriesAndManufacturers = new CategoriesAndManufacturers();
-            categoriesAndManufacturers.Show();
+            Products products = new Products();
+            products.Show();
+            //CategoriesAndManufacturers categoriesAndManufacturers = new CategoriesAndManufacturers();
+            //categoriesAndManufacturers.Show();
             //Clients clients = new Clients();
             //clients.Show();
         }
