@@ -22,7 +22,8 @@ namespace TBD_Magazin
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DbSets.OrderProduct>().HasNoKey();
-            modelBuilder.Entity<DbSets.SupplyProduct>().HasNoKey();
+            //modelBuilder.Entity<DbSets.SupplyProduct>().HasNoKey();
+            modelBuilder.Entity<DbSets.SupplyProduct>().HasKey(s => new { s.ProductId, s.SupplyId, s.Price});
         }
 
         public DbSet<DbSets.Category> Categories { get; set; }

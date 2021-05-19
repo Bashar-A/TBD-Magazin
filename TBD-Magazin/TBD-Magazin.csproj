@@ -13,10 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="AddSupply.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="AddWorker.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="AddProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="EditSupply.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="EditWorker.cs">

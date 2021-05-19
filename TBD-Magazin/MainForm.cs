@@ -25,14 +25,32 @@ namespace TBD_Magazin
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Clients clients = new Clients();
+            clients.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            CategoriesAndManufacturers categoriesAndManufacturers = new CategoriesAndManufacturers();
+            categoriesAndManufacturers.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Products products = new Products();
+            products.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
             WorkersAndRoles workersAndRoles = new WorkersAndRoles();
             workersAndRoles.Show();
-            //Products products = new Products();
-            //products.Show();
-            //CategoriesAndManufacturers categoriesAndManufacturers = new CategoriesAndManufacturers();
-            //categoriesAndManufacturers.Show();
-            //Clients clients = new Clients();
-            //clients.Show();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ProvidersAndSupplies providersAndSupplies = new ProvidersAndSupplies();
+            providersAndSupplies.Show();
         }
     }
 }

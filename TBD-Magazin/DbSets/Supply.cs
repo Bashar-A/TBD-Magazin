@@ -14,9 +14,11 @@ namespace TBD_Magazin.DbSets
         public DateTime Date { get; set; }
 
         [Column("Менеджер_id")]
-        public Worker SupplyManager { get; set; }
+        public int ManagerId { get; set; }
+        public Worker Manager { get; set; }
 
         [Column("Поставщик_id")]
-        public Providor SupplyProvider { get; set; }
+        public int ProviderId { get; set; }
+        public Providor Provider { get; set; }
     }
 }

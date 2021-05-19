@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace TBD_Magazin
 {
@@ -39,16 +41,22 @@ namespace TBD_Magazin
         public void RefreshObject1()
         {
             dataGridView1.Rows.Clear();
-            foreach (var item in MainForm.Database.Categories)
+            foreach (var item in MainForm.Database.Supplies.Include(s => s.Manager).Include(s => s.Provider))
             {
-                dataGridView1.Rows.Add(item.id, item.Name);
+                dataGridView1.Rows.Add
+                    (
+                    item.id,
+                    item.Date.ToShortDateString() + " " + item.Date.ToShortTimeString(),
+                    item.Manager.FullName, 
+                    item.Provider.Name
+                    );
             }
         }
 
         public void RefreshObject2()
         {
             dataGridView2.Rows.Clear();
-            foreach (var item in MainForm.Database.Manufacturers)
+            foreach (var item in MainForm.Database.Providors)
             {
                 dataGridView2.Rows.Add(item.id, item.Name);
             }
@@ -56,20 +64,8 @@ namespace TBD_Magazin
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string input = "";
-            if (ShowInputDialog(ref input) == DialogResult.Cancel || input == "") return;
-            try
-            {
-                DbSets.Category category = new DbSets.Category { Name = input };
-                MainForm.Database.Categories.Add(category);
-                MainForm.Database.SaveChanges();
-                MessageBox.Show("Категория добавлена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                RefreshObject1();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Ошибка! Что-то пошло не так.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            AddSupply addSupply = new AddSupply();
+            addSupply.Show();
         }
         private void button4_Click(object sender, EventArgs e)
         {
@@ -77,10 +73,10 @@ namespace TBD_Magazin
             if(ShowInputDialog(ref input) == DialogResult.Cancel || input == "") return;
             try
             {
-                DbSets.Manufacturer manufacturer = new DbSets.Manufacturer { Name = input };
-                MainForm.Database.Manufacturers.Add(manufacturer);
+                DbSets.Providor providor = new DbSets.Providor { Name = input };
+                MainForm.Database.Providors.Add(providor);
                 MainForm.Database.SaveChanges();
-                MessageBox.Show("Производитель добавлен!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Поставщик добавлен!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 RefreshObject2();
             }
             catch (Exception)
@@ -102,25 +98,9 @@ namespace TBD_Magazin
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
-            object oid = dataGridView1.Rows[e.RowIndex].Cells[0].Value;
-            if (oid == null) return;
-            int id = Convert.ToInt32(oid.ToString());
-
-            try
-            {
-                DbSets.Category category = MainForm.Database.Categories.Find(id);
-                string input = category.Name;
-                if (ShowInputDialog(ref input) == DialogResult.Cancel || input == "" || input == category.Name) return;
-                category.Name = input;
-                MainForm.Database.Categories.Update(category);
-                MainForm.Database.SaveChanges();
-                MessageBox.Show("Категория обновлена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                RefreshObject1();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Ошибка! Что-то пошло не так.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            object id = dataGridView1.Rows[e.RowIndex].Cells[0].Value;
+            if (id == null) return;
+            EditSupply editSupply = new EditSupply(Convert.ToInt32(id.ToString()));
         }
 
 
@@ -135,13 +115,13 @@ namespace TBD_Magazin
 
             try
             {
-                DbSets.Manufacturer manufacturer = MainForm.Database.Manufacturers.Find(id);
-                string input = manufacturer.Name;
-                if (ShowInputDialog(ref input) == DialogResult.Cancel || input == "" || input == manufacturer.Name) return;
-                manufacturer.Name = input;
-                MainForm.Database.Manufacturers.Update(manufacturer);
+                DbSets.Providor providor = MainForm.Database.Providors.Find(id);
+                string input = providor.Name;
+                if (ShowInputDialog(ref input) == DialogResult.Cancel || input == "" || input == providor.Name) return;
+                providor.Name = input;
+                MainForm.Database.Providors.Update(providor);
                 MainForm.Database.SaveChanges();
-                MessageBox.Show("Производитель обновлена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Поставщик обновлен!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 RefreshObject2();
             }
             catch (Exception)

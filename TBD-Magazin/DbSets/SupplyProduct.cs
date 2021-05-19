@@ -15,10 +15,13 @@ namespace TBD_Magazin.DbSets
         public int Quantity { get; set; }
 
         [Column("Поставка_id")]
-        public Supply SupplyID { get; set; }
+        public int SupplyId { get; set; }
+        public Supply Supply { get; set; }
 
         [Column("Товар_id")]
-        public Product ProductID { get; set; }
+        public int ProductId { get; set; }
+        [Column("Товар_id")]
+        public Product Product { get; set; }
 
 
     }
