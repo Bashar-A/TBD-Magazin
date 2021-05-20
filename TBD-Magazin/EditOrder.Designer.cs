@@ -1,7 +1,7 @@
 ﻿
 namespace TBD_Magazin
 {
-    partial class EditSupply
+    partial class EditOrder
     {
         /// <summary>
         /// Required designer variable.
@@ -35,6 +35,7 @@ namespace TBD_Magazin
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -62,9 +63,9 @@ namespace TBD_Magazin
             this.flowLayoutPanel1.Controls.Add(this.label3);
             this.flowLayoutPanel1.Controls.Add(this.label5);
             this.flowLayoutPanel1.Controls.Add(this.label6);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 177);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 199);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(526, 207);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(526, 185);
             this.flowLayoutPanel1.TabIndex = 9;
             // 
             // label3
@@ -96,6 +97,7 @@ namespace TBD_Magazin
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.comboBox2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.dateTimePicker1);
@@ -104,10 +106,19 @@ namespace TBD_Magazin
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(526, 159);
+            this.groupBox1.Size = new System.Drawing.Size(526, 181);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Данные о поставки";
+            this.groupBox1.Text = "Данные о заказе";
+            // 
+            // label7
+            // 
+            this.label7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label7.Location = new System.Drawing.Point(6, 151);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(100, 23);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Сумма закза = 0";
             // 
             // comboBox2
             // 
@@ -122,9 +133,9 @@ namespace TBD_Magazin
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 63);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 15);
+            this.label1.Size = new System.Drawing.Size(54, 15);
             this.label1.TabIndex = 13;
-            this.label1.Text = "Поставщик*:";
+            this.label1.Text = "Клиент*:";
             // 
             // dateTimePicker1
             // 
@@ -146,9 +157,9 @@ namespace TBD_Magazin
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 19);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 15);
+            this.label2.Size = new System.Drawing.Size(69, 15);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Менеджер*:";
+            this.label2.Text = "Продавец*:";
             // 
             // label4
             // 
@@ -169,7 +180,7 @@ namespace TBD_Magazin
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // EditSupply
+            // EditOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -180,8 +191,8 @@ namespace TBD_Magazin
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "EditSupply";
-            this.Text = "Обновить данные о поставки";
+            this.Name = "EditOrder";
+            this.Text = "Обновить данные о заказе";
             this.flowLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -203,5 +214,6 @@ namespace TBD_Magazin
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label7;
     }
 }

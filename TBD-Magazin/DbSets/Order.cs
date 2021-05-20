@@ -17,9 +17,11 @@ namespace TBD_Magazin.DbSets
         public int OrderSum { get; set; }
 
         [Column("Клиент_id")]
-        public Client OrderClient { get; set; }
+        public int ClientId { get; set; }
+        public Client Client { get; set; }
 
         [Column("Продавец_id")]
-        public Worker OrderSeller { get; set; }
+        public int SellerId { get; set; }
+        public Worker Seller { get; set; }
     }
 }

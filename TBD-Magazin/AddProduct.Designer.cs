@@ -32,6 +32,10 @@ namespace TBD_Magazin
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -39,10 +43,6 @@ namespace TBD_Magazin
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,6 +83,40 @@ namespace TBD_Magazin
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Данные товара";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(6, 125);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(248, 23);
+            this.comboBox2.TabIndex = 10;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(6, 81);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(248, 23);
+            this.comboBox1.TabIndex = 3;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(8, 239);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(96, 15);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Срок гарантии*:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(8, 195);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(70, 15);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Мощность:";
             // 
             // label4
             // 
@@ -142,40 +176,6 @@ namespace TBD_Magazin
             this.textBox2.Size = new System.Drawing.Size(248, 23);
             this.textBox2.TabIndex = 3;
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 195);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(70, 15);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Мощность:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 239);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(96, 15);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Срок гарантии*:";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(6, 81);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(248, 23);
-            this.comboBox1.TabIndex = 3;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(6, 125);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(248, 23);
-            this.comboBox2.TabIndex = 10;
-            // 
             // AddProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -183,6 +183,7 @@ namespace TBD_Magazin
             this.ClientSize = new System.Drawing.Size(280, 354);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddProduct";
             this.Text = "Добавить товар";
             this.groupBox1.ResumeLayout(false);

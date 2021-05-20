@@ -76,7 +76,7 @@ namespace TBD_Magazin
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 15);
             this.label1.TabIndex = 13;
-            this.label1.Text = "Потсавщик*:";
+            this.label1.Text = "Поставщик*:";
             // 
             // dateTimePicker1
             // 
@@ -179,6 +179,7 @@ namespace TBD_Magazin
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddSupply";
             this.Text = "Добавить новую поставку";
             this.groupBox1.ResumeLayout(false);

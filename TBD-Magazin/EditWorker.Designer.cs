@@ -33,16 +33,16 @@ namespace TBD_Magazin
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,6 +93,15 @@ namespace TBD_Magazin
             this.comboBox1.Size = new System.Drawing.Size(248, 23);
             this.comboBox1.TabIndex = 16;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 15);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "ФИО*:";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -101,6 +110,13 @@ namespace TBD_Magazin
             this.label3.Size = new System.Drawing.Size(128, 15);
             this.label3.TabIndex = 23;
             this.label3.Text = "Паспортные данные*:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 37);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(248, 23);
+            this.textBox1.TabIndex = 14;
             // 
             // label2
             // 
@@ -111,6 +127,13 @@ namespace TBD_Magazin
             this.label2.TabIndex = 15;
             this.label2.Text = "Должность*:";
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(6, 125);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(248, 23);
+            this.textBox2.TabIndex = 17;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -119,6 +142,13 @@ namespace TBD_Magazin
             this.label6.Size = new System.Drawing.Size(48, 15);
             this.label6.TabIndex = 21;
             this.label6.Text = "Адрес*:";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(6, 169);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(248, 23);
+            this.textBox3.TabIndex = 18;
             // 
             // label5
             // 
@@ -129,6 +159,13 @@ namespace TBD_Magazin
             this.label5.TabIndex = 22;
             this.label5.Text = "Телефон*:";
             // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(6, 213);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(248, 23);
+            this.textBox4.TabIndex = 20;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -138,43 +175,6 @@ namespace TBD_Magazin
             this.label4.TabIndex = 19;
             this.label4.Text = "Дата рождения*:";
             // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(6, 213);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(248, 23);
-            this.textBox4.TabIndex = 20;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(6, 169);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(248, 23);
-            this.textBox3.TabIndex = 18;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(6, 125);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(248, 23);
-            this.textBox2.TabIndex = 17;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 15);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "ФИО*:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(6, 37);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(248, 23);
-            this.textBox1.TabIndex = 14;
-            // 
             // EditWorker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -182,6 +182,7 @@ namespace TBD_Magazin
             this.ClientSize = new System.Drawing.Size(279, 355);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "EditWorker";
             this.Text = "Обновить данные продукта";
             this.groupBox1.ResumeLayout(false);

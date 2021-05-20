@@ -52,5 +52,11 @@ namespace TBD_Magazin
             ProvidersAndSupplies providersAndSupplies = new ProvidersAndSupplies();
             providersAndSupplies.Show();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Orders orders = new Orders();
+            orders.Show();
+        }
     }
 }

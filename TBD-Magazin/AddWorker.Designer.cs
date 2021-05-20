@@ -32,17 +32,17 @@ namespace TBD_Magazin
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,6 +84,13 @@ namespace TBD_Magazin
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Данные о сотрудника";
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(6, 81);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(248, 23);
+            this.dateTimePicker1.TabIndex = 12;
+            // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
@@ -91,6 +98,24 @@ namespace TBD_Magazin
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(248, 23);
             this.comboBox1.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 195);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(128, 15);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Паспортные данные*:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 239);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 15);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Должность*:";
             // 
             // label6
             // 
@@ -143,37 +168,12 @@ namespace TBD_Magazin
             this.textBox3.Size = new System.Drawing.Size(248, 23);
             this.textBox3.TabIndex = 5;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 239);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 15);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Должность*:";
-            // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(6, 125);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(248, 23);
             this.textBox2.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 195);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(128, 15);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Паспортные данные*:";
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(6, 81);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(248, 23);
-            this.dateTimePicker1.TabIndex = 12;
             // 
             // AddWorker
             // 
@@ -182,6 +182,7 @@ namespace TBD_Magazin
             this.ClientSize = new System.Drawing.Size(280, 352);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddWorker";
             this.Text = "Добавить нового сотрудника";
             this.groupBox1.ResumeLayout(false);

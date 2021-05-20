@@ -121,6 +121,7 @@ namespace TBD_Magazin
             this.ClientSize = new System.Drawing.Size(284, 226);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddClient";
             this.Text = "Добавить клиента";
             this.groupBox1.ResumeLayout(false);

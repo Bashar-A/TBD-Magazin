@@ -15,10 +15,12 @@ namespace TBD_Magazin.DbSets
         public int Quantity { get; set; }
 
         [Column("Заказ_id")]
-        public Order OrderID { get; set; }
+        public int OrderId { get; set; }
+        public Order Order { get; set; }
 
         [Column("Товар_id")]
-        public Product ProductID { get; set; }
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
 
 
     }
