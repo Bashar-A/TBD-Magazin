@@ -10,7 +10,7 @@ namespace TBD_Magazin
 {
     class ProductRow
     {
-        public ProductRow(Control control, List<string> products, List<ProductRow> rowList, string selectedProduct = "", int price = -1, int quantity = 1)
+        public ProductRow(Control control, List<string> products, List<ProductRow> rowList, string selectedProduct = "", int price = -1, int quantity = 1, bool autoPrice = false)
         {
             RowComboBoxProduct = new ComboBox();
             RowComboBoxProduct.Size = new System.Drawing.Size(310, 23);
@@ -18,6 +18,8 @@ namespace TBD_Magazin
             RowComboBoxProduct.Parent = control;
             RowComboBoxProduct.Items.AddRange(products.ToArray());
             RowComboBoxProduct.SelectedItem = selectedProduct;
+            RowComboBoxProduct.DropDownStyle = ComboBoxStyle.DropDownList;
+            if(autoPrice)RowComboBoxProduct.SelectedIndexChanged += RowComboBoxProduct_SelectedIndexChanged;
 
             RowTextBoxPrice = new TextBox();
             RowTextBoxPrice.Size = new System.Drawing.Size(74, 23);
@@ -26,12 +28,14 @@ namespace TBD_Magazin
             RowTextBoxPrice.TextAlign = HorizontalAlignment.Right;
             if(price != -1) RowTextBoxPrice.Text = price.ToString();
 
-            RowTextBoxQuantity = new TextBox();
+            RowTextBoxQuantity = new NumericUpDown();
             RowTextBoxQuantity.Size = new System.Drawing.Size(74, 23);
             RowTextBoxQuantity.AutoSize = false;
             RowTextBoxQuantity.Parent = control;
             RowTextBoxQuantity.TextAlign = HorizontalAlignment.Right;
-            RowTextBoxQuantity.Text = quantity.ToString();
+            RowTextBoxQuantity.Value = quantity;
+            RowTextBoxQuantity.Minimum = 1;
+            RowTextBoxQuantity.Maximum = 1000;
 
 
             RowButtonDelete = new Button();
@@ -42,6 +46,16 @@ namespace TBD_Magazin
             RowButtonDelete.Click += TaskButton_Click;
             ProductRows = rowList;
 
+        }
+
+        private void RowComboBoxProduct_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                DbSets.Product product = MainForm.Database.Products.Where(p => p.Name == RowComboBoxProduct.SelectedItem.ToString()).FirstOrDefault();
+                RowTextBoxPrice.Text = product.Price.ToString();
+            }
+            catch (Exception) { }
         }
 
         private void TaskButton_Click(object sender, EventArgs e)
@@ -73,7 +87,7 @@ namespace TBD_Magazin
 
         public ComboBox RowComboBoxProduct { get; set; }
         public TextBox RowTextBoxPrice { get; set; }
-        public TextBox RowTextBoxQuantity { get; set; }
+        public NumericUpDown RowTextBoxQuantity { get; set; }
         public Button RowButtonDelete { get; set; }
         List<ProductRow> ProductRows = new List<ProductRow>();
     }

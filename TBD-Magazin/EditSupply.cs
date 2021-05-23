@@ -15,6 +15,9 @@ namespace TBD_Magazin
         int supplyId;
         List<ProductRow> productRows = new List<ProductRow>();
         List<string> products = new List<string>();
+        Dictionary<string, int> productQuantity = new Dictionary<string, int>();
+        Dictionary<string, int> productPriceQuantity = new Dictionary<string, int>();
+        List<DbSets.SupplyProduct> supplyProducts = new List<DbSets.SupplyProduct>();
         public EditSupply()
         {
             InitializeComponent();
@@ -64,24 +67,56 @@ namespace TBD_Magazin
         {
             try
             {
+                productQuantity = new Dictionary<string, int>();
+                productPriceQuantity = new Dictionary<string, int>();
+                supplyProducts = new List<DbSets.SupplyProduct>();
                 DbSets.Supply supply = MainForm.Database.Supplies.Include(s => s.Manager).Include(s => s.Provider).First(w => w.id == supplyId);
                 supply.Date = dateTimePicker1.Value;
-                supply.Manager = MainForm.Database.Workers.Single(w => w.FullName == comboBox1.SelectedItem.ToString());
-                supply.Provider = MainForm.Database.Providors.Single(w => w.Name == comboBox2.SelectedItem.ToString());
-                MainForm.Database.Supplies.Update(supply);
+                supply.ManagerId = MainForm.Database.Workers.FirstOrDefault(w => w.FullName == comboBox1.SelectedItem.ToString()).id;
+                supply.ProviderId = MainForm.Database.Providors.FirstOrDefault(w => w.Name == comboBox2.SelectedItem.ToString()).id;
 
-                List<DbSets.SupplyProduct> supplyProducts = MainForm.Database.SupplyProducts.Where(s => s.SupplyId == supplyId).ToList();
-                MainForm.Database.RemoveRange(supplyProducts);
+                List<DbSets.SupplyProduct> supplyProductOld = MainForm.Database.SupplyProducts.Include(s => s.Product).Where(s => s.SupplyId == supplyId).ToList();
+                foreach (var item in supplyProductOld)
+                {
+                    TryAddOrUpdate(item.Product.Name, item.Product.Quantity, item.Quantity, false);
+                }
+
+                MainForm.Database.RemoveRange(supplyProductOld);
+
                 foreach (var item in productRows)
                 {
+                    if (item.RowComboBoxProduct.SelectedIndex == -1 || Convert.ToInt32(item.RowTextBoxPrice.Text) < 0 || item.RowTextBoxQuantity.Value < 1) throw new Exception();
+
+                    DbSets.Product product = MainForm.Database.Products.AsNoTracking().FirstOrDefault(p => p.Name == item.RowComboBoxProduct.SelectedItem.ToString());
+                    if (!productPriceQuantity.TryAdd(
+                        item.RowComboBoxProduct.SelectedItem.ToString() + "|" + item.RowTextBoxPrice.Text,
+                        Convert.ToInt32(item.RowTextBoxQuantity.Text))) throw new Exception();
+
                     DbSets.SupplyProduct supplyProduct = new DbSets.SupplyProduct
                     {
                         SupplyId = supplyId,
-                        ProductId = MainForm.Database.Products.FirstOrDefault(p => p.Name == item.RowComboBoxProduct.SelectedItem.ToString()).id,
+                        ProductId = product.id,
                         Price = Convert.ToInt32(item.RowTextBoxPrice.Text),
-                        Quantity = Convert.ToInt32(item.RowTextBoxQuantity.Text)
+                        Quantity = Convert.ToInt32(item.RowTextBoxQuantity.Value)
                     };
-                    MainForm.Database.SupplyProducts.Add(supplyProduct);
+
+                    TryAddOrUpdate(product.Name, product.Quantity, supplyProduct.Quantity);
+                    supplyProducts.Add(supplyProduct);
+                }
+
+                foreach (var item in productQuantity)
+                {
+                    if (item.Value < 0) throw new Exception();
+                }
+
+                foreach (var item in productQuantity)
+                {
+                    DbSets.Product product = MainForm.Database.Products.FirstOrDefault(p => p.Name == item.Key);
+                    product.Quantity = item.Value;
+                }
+                foreach (var item in supplyProducts)
+                {
+                    MainForm.Database.SupplyProducts.Add(item);
                 }
 
                 MainForm.Database.SaveChanges();
@@ -94,9 +129,15 @@ namespace TBD_Magazin
             }
         }
 
+        private void TryAddOrUpdate(string key, int value, int valueToAdd, bool plus = true)
+        {
+            productQuantity.TryAdd(key, value);
+            productQuantity[key] += plus ? valueToAdd : -valueToAdd;
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
-            ProductRow row = new ProductRow(flowLayoutPanel1, products, productRows);
+            ProductRow row = new ProductRow(flowLayoutPanel1, products, productRows, autoPrice: true);
             productRows.Add(row);
         }
     }

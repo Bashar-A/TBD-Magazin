@@ -16,13 +16,12 @@ namespace TBD_Magazin
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
+            //optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             optionsBuilder.UseMySql("server=localhost;UserId=root;Password=0;database=tbd-shop;", serverVersion);
         }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<DbSets.OrderProduct>().HasNoKey();
-            //modelBuilder.Entity<DbSets.SupplyProduct>().HasNoKey();
             modelBuilder.Entity<DbSets.OrderProduct>().HasKey(o => new { o.ProductId, o.OrderId, o.Price });
             modelBuilder.Entity<DbSets.SupplyProduct>().HasKey(s => new { s.ProductId, s.SupplyId, s.Price});
         }

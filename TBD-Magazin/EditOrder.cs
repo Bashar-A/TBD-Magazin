@@ -15,6 +15,9 @@ namespace TBD_Magazin
         int orderId;
         List<ProductRow> productRows = new List<ProductRow>();
         List<string> products = new List<string>();
+        Dictionary<string, int> productQuantity = new Dictionary<string, int>();
+        Dictionary<string, int> productPriceQuantity = new Dictionary<string, int>();
+        List<DbSets.OrderProduct> orderProducts = new List<DbSets.OrderProduct>();
         public EditOrder()
         {
             InitializeComponent();
@@ -31,7 +34,7 @@ namespace TBD_Magazin
                 }
                 foreach (var item in MainForm.Database.OrderProducts.Include(o => o.Product).Where(o => o.OrderId == orderId))
                 {
-                    ProductRow row = new ProductRow(flowLayoutPanel1, products, productRows, item.Product.Name, item.Price, item.Quantity);
+                    ProductRow row = new ProductRow(flowLayoutPanel1, products, productRows, item.Product.Name, item.Price, item.Quantity, true);
                     productRows.Add(row);
                 }
                 
@@ -65,24 +68,56 @@ namespace TBD_Magazin
         {
             try
             {
+                productQuantity = new Dictionary<string, int>();
+                productPriceQuantity = new Dictionary<string, int>();
+                orderProducts = new List<DbSets.OrderProduct>();
+
                 DbSets.Order order = MainForm.Database.Orders.Include(o => o.Seller).Include(o => o.Client).First(o => o.id == orderId);
                 order.Date = dateTimePicker1.Value;
-                order.Seller = MainForm.Database.Workers.Single(w => w.FullName == comboBox1.SelectedItem.ToString());
-                order.Client = MainForm.Database.Clients.Single(c => c.FullName == comboBox2.SelectedItem.ToString());
-                MainForm.Database.Orders.Update(order);
+                order.SellerId = MainForm.Database.Workers.FirstOrDefault(w => w.FullName == comboBox1.SelectedItem.ToString()).id;
+                order.ClientId = MainForm.Database.Clients.FirstOrDefault(c => c.FullName == comboBox2.SelectedItem.ToString()).id;
 
-                List<DbSets.OrderProduct> orderProducts = MainForm.Database.OrderProducts.Where(o => o.OrderId == orderId).ToList();
-                MainForm.Database.RemoveRange(orderProducts);
+                List<DbSets.OrderProduct> orderProductOld = MainForm.Database.OrderProducts.Include(o => o.Product).Where(o => o.OrderId == orderId).ToList();
+                foreach (var item in orderProductOld)
+                {
+                    TryAddOrUpdate(item.Product.Name, item.Product.Quantity, item.Quantity);
+                }
+                MainForm.Database.RemoveRange(orderProductOld);
+
+
                 foreach (var item in productRows)
                 {
+                    if (item.RowComboBoxProduct.SelectedIndex == -1 || Convert.ToInt32(item.RowTextBoxPrice.Text) < 0 || item.RowTextBoxQuantity.Value < 1) throw new Exception();
+
+                    DbSets.Product product = MainForm.Database.Products.AsNoTracking().FirstOrDefault(p => p.Name == item.RowComboBoxProduct.SelectedItem.ToString());
+                    if (!productPriceQuantity.TryAdd(
+                        item.RowComboBoxProduct.SelectedItem.ToString() + "|" + item.RowTextBoxPrice.Text,
+                        Convert.ToInt32(item.RowTextBoxQuantity.Text))) throw new Exception();
+
                     DbSets.OrderProduct orderProduct = new DbSets.OrderProduct
                     {
                         OrderId = orderId,
-                        ProductId = MainForm.Database.Products.FirstOrDefault(p => p.Name == item.RowComboBoxProduct.SelectedItem.ToString()).id,
+                        ProductId = product.id,
                         Price = Convert.ToInt32(item.RowTextBoxPrice.Text),
                         Quantity = Convert.ToInt32(item.RowTextBoxQuantity.Text)
                     };
-                    MainForm.Database.OrderProducts.Add(orderProduct);
+
+                    TryAddOrUpdate(product.Name, product.Quantity, orderProduct.Quantity, false);
+                    orderProducts.Add(orderProduct);
+                }
+
+                foreach (var item in productQuantity)
+                {
+                    if (item.Value < 0) throw new Exception();
+                }
+                foreach (var item in productQuantity)
+                {
+                    DbSets.Product product = MainForm.Database.Products.FirstOrDefault(p => p.Name == item.Key);
+                    product.Quantity = item.Value;
+                }
+                foreach (var item in orderProducts)
+                {
+                    MainForm.Database.OrderProducts.Add(item);
                 }
 
                 MainForm.Database.SaveChanges();
@@ -97,8 +132,14 @@ namespace TBD_Magazin
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ProductRow row = new ProductRow(flowLayoutPanel1, products, productRows);
+            ProductRow row = new ProductRow(flowLayoutPanel1, products, productRows, autoPrice: true);
             productRows.Add(row);
+        }
+
+        private void TryAddOrUpdate(string key, int value, int valueToAdd, bool plus = true)
+        {
+            productQuantity.TryAdd(key, value);
+            productQuantity[key] += plus ? valueToAdd : -valueToAdd;
         }
     }
 }

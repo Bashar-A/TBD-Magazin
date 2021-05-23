@@ -63,10 +63,11 @@ namespace TBD_Magazin
             // 
             // comboBox2
             // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(6, 81);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(481, 23);
+            this.comboBox2.Size = new System.Drawing.Size(514, 23);
             this.comboBox2.TabIndex = 14;
             // 
             // label1
@@ -82,15 +83,16 @@ namespace TBD_Magazin
             // 
             this.dateTimePicker1.Location = new System.Drawing.Point(6, 125);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(481, 23);
+            this.dateTimePicker1.Size = new System.Drawing.Size(514, 23);
             this.dateTimePicker1.TabIndex = 12;
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(6, 37);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(481, 23);
+            this.comboBox1.Size = new System.Drawing.Size(514, 23);
             this.comboBox1.TabIndex = 3;
             // 
             // label2

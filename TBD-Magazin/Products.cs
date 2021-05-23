@@ -37,7 +37,7 @@ namespace TBD_Magazin
         public void RefreshObject()
         {
             dataGridView1.Rows.Clear();
-            foreach (var item in MainForm.Database.Products.Include(p => p.Category).Include(p => p.Manufacturer))
+            foreach (var item in MainForm.Database.Products.AsNoTracking().Include(p => p.Category).Include(p => p.Manufacturer))
             {
                 dataGridView1.Rows.Add(item.id, item.Name, item.Price, item.Quantity, item.Category.Name, item.Manufacturer.Name, item.Power, item.Garanty);
             }
