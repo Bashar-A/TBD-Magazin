@@ -14,15 +14,21 @@ namespace TBD_Magazin.DbSets
         public string Address { get; set; }
 
         [Column("Дата")]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
+
+        [Column("Доставлено")]
+        public bool Deliveried { get; set; }
 
         [Column("Заказ_id")]
-        public Order DeliveryOrder { get; set; }
+        public int OrderId { get; set; }
+        public Order Order { get; set; }
 
         [Column("Курьер_id")]
-        public Worker DeliveryCourier { get; set; }
+        public int? CourierId { get; set; }
+        public Worker Courier { get; set; }
 
         [Column("Менеджер_id")]
-        public Worker DeliveryManager { get; set; }
+        public int? ManagerId { get; set; }
+        public Worker Manager { get; set; }
     }
 }

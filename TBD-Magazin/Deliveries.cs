@@ -10,52 +10,43 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TBD_Magazin
 {
-    public partial class Orders : Form
+    public partial class Deliveries : Form
     {
-        public Orders()
+        public Deliveries()
         {
             InitializeComponent();
         }
 
-        private void Orders_Load(object sender, EventArgs e)
+        private void Deliveries_Load(object sender, EventArgs e)
         {
             dataGridView1.Columns.Add("ID", "ID");
+            dataGridView1.Columns.Add("Address", "Адрес");
             dataGridView1.Columns.Add("Date", "Дата");
-            dataGridView1.Columns.Add("Client", "Клиент");
-            dataGridView1.Columns.Add("Seller", "Продавец");
-            dataGridView1.Columns.Add("Sum", "Стоимость заказа");
+            dataGridView1.Columns.Add("Order", "Номер заказа");
+            dataGridView1.Columns.Add("Courier", "Курьер");
+            dataGridView1.Columns.Add("Manager", "Менеджер");
+            dataGridView1.Columns.Add("Deliveried", "Доставлено");
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
-            RefreshObject1();
+            RefreshObject();
         }
 
-        public void RefreshObject1()
+        public void RefreshObject()
         {
             dataGridView1.Rows.Clear();
-            foreach (var item in MainForm.Database.Orders.Include(o => o.Seller).Include(s => s.Client))
+            foreach (var item in MainForm.Database.Deliveries.AsNoTracking().Include(d => d.Courier).Include(d => d.Manager))
             {
-                dataGridView1.Rows.Add
-                    (
-                    item.id,
-                    item.Date.ToShortDateString() + " " + item.Date.ToShortTimeString(),
-                    item.Seller.FullName, 
-                    item.Client.FullName,
-                    item.OrderSum
-                    );
+                dataGridView1.Rows.Add(item.id, item.Address, item.Date, item.OrderId, item.Courier?.FullName, item.Manager?.FullName, item.Deliveried ? "Да" : "Нет");
+                if (item.Deliveried) dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Green;
+                else dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
             }
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            AddOrder addOrder = new AddOrder();
-            addOrder.Show();
-        }
-
 
         private void button2_Click(object sender, EventArgs e)
         {
-            RefreshObject1();
+            RefreshObject();
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -63,8 +54,7 @@ namespace TBD_Magazin
             if (e.RowIndex == -1) return;
             object id = dataGridView1.Rows[e.RowIndex].Cells[0].Value;
             if (id == null) return;
-            EditOrder editOrder = new EditOrder(Convert.ToInt32(id.ToString()));
+            EditDelivery editDelivery = new EditDelivery(Convert.ToInt32(id.ToString()));
         }
-
     }
 }

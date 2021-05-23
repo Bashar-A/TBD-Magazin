@@ -34,7 +34,7 @@ namespace TBD_Magazin
                 }
                 foreach (var item in MainForm.Database.OrderProducts.Include(o => o.Product).Where(o => o.OrderId == orderId))
                 {
-                    ProductRow row = new ProductRow(flowLayoutPanel1, products, productRows, item.Product.Name, item.Price, item.Quantity, true);
+                    ProductRow row = new ProductRow(flowLayoutPanel1, products, productRows, item.Product.Name, item.Price, item.Quantity, true, label: label8);
                     productRows.Add(row);
                 }
                 
@@ -42,9 +42,11 @@ namespace TBD_Magazin
 
                 DbSets.Order order = MainForm.Database.Orders.Include(o => o.Seller).Include(o => o.Client).First(o => o.id == orderId);
                 if (order == null) throw new Exception();
+                DbSets.Delivery delivery = MainForm.Database.Deliveries.Where(d => d.OrderId == orderId).FirstOrDefault();
+                if (delivery != null) checkBox1.Checked = true;
                 dateTimePicker1.Value = order.Date;
-                label7.Text = order.OrderSum.ToString();
-                foreach (var item in MainForm.Database.Workers)
+                label8.Text = order.OrderSum.ToString();
+                foreach (var item in MainForm.Database.Workers.Where(w => w.Role.Name == "Продавец"))
                 {
                     comboBox1.Items.Add(item.FullName);
                     if (item.FullName == order.Seller.FullName) comboBox1.SelectedItem = item.FullName;
@@ -55,6 +57,22 @@ namespace TBD_Magazin
                     if (item.FullName == order.Client.FullName) comboBox2.SelectedItem = item.FullName;
                 }
 
+                if (delivery != null && delivery.Deliveried)
+                {
+                    dateTimePicker1.Enabled = false;
+                    comboBox1.Enabled = false;
+                    comboBox2.Enabled = false;
+                    button1.Enabled = false;
+                    button2.Enabled = false;
+                    foreach (var item in productRows)
+                    {
+                        item.RowButtonDelete.Enabled = false;
+                        item.RowComboBoxProduct.Enabled = false;
+                        item.RowTextBoxPrice.Enabled = false;
+                        item.RowTextBoxQuantity.Enabled = false;
+                    }
+
+                }
 
                 this.Show();
             }
@@ -74,6 +92,7 @@ namespace TBD_Magazin
 
                 DbSets.Order order = MainForm.Database.Orders.Include(o => o.Seller).Include(o => o.Client).First(o => o.id == orderId);
                 order.Date = dateTimePicker1.Value;
+                order.OrderSum = Convert.ToInt32(label8.Text);
                 order.SellerId = MainForm.Database.Workers.FirstOrDefault(w => w.FullName == comboBox1.SelectedItem.ToString()).id;
                 order.ClientId = MainForm.Database.Clients.FirstOrDefault(c => c.FullName == comboBox2.SelectedItem.ToString()).id;
 
@@ -132,7 +151,7 @@ namespace TBD_Magazin
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ProductRow row = new ProductRow(flowLayoutPanel1, products, productRows, autoPrice: true);
+            ProductRow row = new ProductRow(flowLayoutPanel1, products, productRows, autoPrice: true, label: label8);
             productRows.Add(row);
         }
 
@@ -140,6 +159,12 @@ namespace TBD_Magazin
         {
             productQuantity.TryAdd(key, value);
             productQuantity[key] += plus ? valueToAdd : -valueToAdd;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Check check = new Check(orderId);
+            check.Show();
         }
     }
 }

@@ -58,5 +58,11 @@ namespace TBD_Magazin
             Orders orders = new Orders();
             orders.Show();
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Deliveries deliveries = new Deliveries();
+            deliveries.Show();
+        }
     }
 }

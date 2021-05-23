@@ -10,8 +10,10 @@ namespace TBD_Magazin
 {
     class ProductRow
     {
-        public ProductRow(Control control, List<string> products, List<ProductRow> rowList, string selectedProduct = "", int price = -1, int quantity = 1, bool autoPrice = false)
+        public ProductRow(Control control, List<string> products, List<ProductRow> rowList, string selectedProduct = "", int price = -1, int quantity = 1, bool autoPrice = false, Label label = null)
         {
+            SumLabel = label;
+
             RowComboBoxProduct = new ComboBox();
             RowComboBoxProduct.Size = new System.Drawing.Size(310, 23);
             RowComboBoxProduct.AutoSize = false;
@@ -21,18 +23,22 @@ namespace TBD_Magazin
             RowComboBoxProduct.DropDownStyle = ComboBoxStyle.DropDownList;
             if(autoPrice)RowComboBoxProduct.SelectedIndexChanged += RowComboBoxProduct_SelectedIndexChanged;
 
+
             RowTextBoxPrice = new TextBox();
             RowTextBoxPrice.Size = new System.Drawing.Size(74, 23);
             RowTextBoxPrice.AutoSize = false;
             RowTextBoxPrice.Parent = control;
             RowTextBoxPrice.TextAlign = HorizontalAlignment.Right;
             if(price != -1) RowTextBoxPrice.Text = price.ToString();
+            RowTextBoxPrice.TextChanged += ValueChanged;
+
 
             RowTextBoxQuantity = new NumericUpDown();
             RowTextBoxQuantity.Size = new System.Drawing.Size(74, 23);
             RowTextBoxQuantity.AutoSize = false;
             RowTextBoxQuantity.Parent = control;
             RowTextBoxQuantity.TextAlign = HorizontalAlignment.Right;
+            RowTextBoxQuantity.ValueChanged += ValueChanged;
             RowTextBoxQuantity.Value = quantity;
             RowTextBoxQuantity.Minimum = 1;
             RowTextBoxQuantity.Maximum = 1000;
@@ -46,6 +52,22 @@ namespace TBD_Magazin
             RowButtonDelete.Click += TaskButton_Click;
             ProductRows = rowList;
 
+        }
+
+        private void ValueChanged(object sender, EventArgs e)
+        {
+            if (SumLabel == null) return;
+            try
+            {
+                SumLabel.Text = "0";
+                int sum = 0;
+                foreach (var item in ProductRows)
+                {
+                    sum += Convert.ToInt32(item.RowTextBoxPrice.Text) * (int)item.RowTextBoxQuantity.Value;
+                }
+                SumLabel.Text = sum.ToString();
+            }
+            catch (Exception) { }
         }
 
         private void RowComboBoxProduct_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,6 +107,7 @@ namespace TBD_Magazin
             RowButtonDelete.Dispose();
         }
 
+        public Label SumLabel { get; set; }
         public ComboBox RowComboBoxProduct { get; set; }
         public TextBox RowTextBoxPrice { get; set; }
         public NumericUpDown RowTextBoxQuantity { get; set; }

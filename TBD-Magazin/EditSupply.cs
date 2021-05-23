@@ -43,7 +43,7 @@ namespace TBD_Magazin
                 DbSets.Supply supply = MainForm.Database.Supplies.Include(s => s.Manager).Include(s => s.Provider).First(s => s.id == supplyId);
                 if (supply == null) throw new Exception();
                 dateTimePicker1.Value = supply.Date;
-                foreach (var item in MainForm.Database.Workers)
+                foreach (var item in MainForm.Database.Workers.Where(w => w.Role.Name == "Менеджер"))
                 {
                     comboBox1.Items.Add(item.FullName);
                     if (item.FullName == supply.Manager.FullName) comboBox1.SelectedItem = item.FullName;

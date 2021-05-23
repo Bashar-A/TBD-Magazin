@@ -17,6 +17,7 @@ namespace TBD_Magazin.DbSets
         public int Sum { get; set; }
 
         [Column("Заказ_id")]
-        public Order CheckOrder { get; set; }
+        public int OrderId { get; set; }
+        public Order Order { get; set; }
     }
 }

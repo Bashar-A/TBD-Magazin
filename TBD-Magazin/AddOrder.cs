@@ -47,7 +47,8 @@ namespace TBD_Magazin
 
                 order = new DbSets.Order
                 {
-                    Date = dateTimePicker1.Value
+                    Date = dateTimePicker1.Value,
+                    OrderSum = Convert.ToInt32(label8.Text)
                 };
                 if (comboBox1.SelectedIndex == -1 || comboBox2.SelectedIndex == -1) throw new Exception();
                 order.SellerId = MainForm.Database.Workers.FirstOrDefault(w => w.FullName == comboBox1.SelectedItem.ToString()).id;
@@ -91,9 +92,21 @@ namespace TBD_Magazin
                 {
                     MainForm.Database.OrderProducts.Add(item);
                 }
+                if (checkBox1.Checked)
+                {
+                    DbSets.Delivery delivery = new DbSets.Delivery
+                    {
+                        Address = textBox1.Text,
+                        OrderId = order.id,
+                        Deliveried = false
+                    };
+                    MainForm.Database.Deliveries.Add(delivery);
+                }
 
                 MainForm.Database.SaveChanges();
                 MessageBox.Show("Заказ добавлен!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Check check = new Check(order.id);
+                check.Show();
                 this.Close();
             }
             catch (Exception)
@@ -115,8 +128,13 @@ namespace TBD_Magazin
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ProductRow row = new ProductRow(flowLayoutPanel1, products, productRows, autoPrice: true);
+            ProductRow row = new ProductRow(flowLayoutPanel1, products, productRows, autoPrice: true, label: label8);
             productRows.Add(row);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            textBox1.Enabled = checkBox1.Checked;
         }
     }
 }
