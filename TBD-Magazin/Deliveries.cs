@@ -56,5 +56,22 @@ namespace TBD_Magazin
             if (id == null) return;
             EditDelivery editDelivery = new EditDelivery(Convert.ToInt32(id.ToString()));
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentCell.RowIndex == -1) return;
+            object id = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value;
+            if (id == null) return;
+            try
+            {
+                DbSets.Delivery delivery = MainForm.Database.Deliveries.Find(id);
+                MainForm.Database.Deliveries.Remove(delivery);
+                MainForm.Database.SaveChanges();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка! Cуществуют зависимые записи.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

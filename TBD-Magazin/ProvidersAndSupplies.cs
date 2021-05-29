@@ -170,6 +170,38 @@ namespace TBD_Magazin
             return result;
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentCell.RowIndex == -1) return;
+            object id = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value;
+            if (id == null) return;
+            try
+            {
+                DbSets.Supply supply = MainForm.Database.Supplies.Find(id);
+                MainForm.Database.Supplies.Remove(supply);
+                MainForm.Database.SaveChanges();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка! Cуществуют зависимые записи.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (dataGridView2.CurrentCell.RowIndex == -1) return;
+            object id = dataGridView2.Rows[dataGridView2.CurrentCell.RowIndex].Cells[0].Value;
+            if (id == null) return;
+            try
+            {
+                DbSets.Providor providor = MainForm.Database.Providors.Find(id);
+                MainForm.Database.Providors.Remove(providor);
+                MainForm.Database.SaveChanges();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка! Cуществуют зависимые записи.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

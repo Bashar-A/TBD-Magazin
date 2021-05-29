@@ -21,8 +21,8 @@ namespace TBD_Magazin
         {
             dataGridView1.Columns.Add("ID", "ID");
             dataGridView1.Columns.Add("Date", "Дата");
-            dataGridView1.Columns.Add("Client", "Клиент");
             dataGridView1.Columns.Add("Seller", "Продавец");
+            dataGridView1.Columns.Add("Client", "Клиент");
             dataGridView1.Columns.Add("Sum", "Стоимость заказа");
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -66,5 +66,20 @@ namespace TBD_Magazin
             EditOrder editOrder = new EditOrder(Convert.ToInt32(id.ToString()));
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentCell.RowIndex == -1) return;
+            object id = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value;
+            if (id == null) return;
+            try
+            {
+                DbSets.Order order = MainForm.Database.Orders.Find(id);
+                MainForm.Database.Orders.Remove(order);
+                MainForm.Database.SaveChanges();
+            }
+            catch (Exception) {
+                MessageBox.Show("Ошибка! Cуществуют зависимые записи.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

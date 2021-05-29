@@ -38,6 +38,8 @@ namespace TBD_Magazin
             this.label2 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -55,14 +57,14 @@ namespace TBD_Magazin
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(460, 332);
+            this.dataGridView1.Size = new System.Drawing.Size(430, 332);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(357, 338);
+            this.button1.Location = new System.Drawing.Point(327, 338);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 30);
             this.button1.TabIndex = 1;
@@ -73,7 +75,7 @@ namespace TBD_Magazin
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(251, 338);
+            this.button2.Location = new System.Drawing.Point(221, 338);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 30);
             this.button2.TabIndex = 2;
@@ -90,7 +92,7 @@ namespace TBD_Magazin
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowTemplate.Height = 25;
-            this.dataGridView2.Size = new System.Drawing.Size(296, 332);
+            this.dataGridView2.Size = new System.Drawing.Size(326, 332);
             this.dataGridView2.TabIndex = 3;
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             // 
@@ -104,6 +106,7 @@ namespace TBD_Magazin
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.button5);
             this.splitContainer1.Panel1.Controls.Add(this.dataGridView1);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.button1);
@@ -111,12 +114,13 @@ namespace TBD_Magazin
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.button6);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.button3);
             this.splitContainer1.Panel2.Controls.Add(this.button4);
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView2);
             this.splitContainer1.Size = new System.Drawing.Size(760, 373);
-            this.splitContainer1.SplitterDistance = 460;
+            this.splitContainer1.SplitterDistance = 430;
             this.splitContainer1.TabIndex = 4;
             // 
             // label1
@@ -125,7 +129,7 @@ namespace TBD_Magazin
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Location = new System.Drawing.Point(3, 338);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(242, 30);
+            this.label1.Size = new System.Drawing.Size(176, 30);
             this.label1.TabIndex = 4;
             this.label1.Text = "Поставки";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -136,7 +140,7 @@ namespace TBD_Magazin
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.Location = new System.Drawing.Point(3, 338);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 30);
+            this.label2.Size = new System.Drawing.Size(80, 30);
             this.label2.TabIndex = 5;
             this.label2.Text = "Поставщики";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -144,7 +148,7 @@ namespace TBD_Magazin
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(87, 338);
+            this.button3.Location = new System.Drawing.Point(117, 338);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 30);
             this.button3.TabIndex = 4;
@@ -155,13 +159,35 @@ namespace TBD_Magazin
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(193, 338);
+            this.button4.Location = new System.Drawing.Point(223, 338);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(100, 30);
             this.button4.TabIndex = 3;
             this.button4.Text = "Добавить";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Location = new System.Drawing.Point(185, 338);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(30, 30);
+            this.button5.TabIndex = 6;
+            this.button5.Text = "X";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button6.Location = new System.Drawing.Point(81, 338);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(30, 30);
+            this.button6.TabIndex = 7;
+            this.button6.Text = "X";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // ProvidersAndSupplies
             // 
@@ -193,5 +219,7 @@ namespace TBD_Magazin
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
     }
 }

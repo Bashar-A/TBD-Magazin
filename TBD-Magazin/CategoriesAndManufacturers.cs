@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace TBD_Magazin
 {
@@ -188,6 +190,38 @@ namespace TBD_Magazin
             return result;
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (dataGridView2.CurrentCell.RowIndex == -1) return;
+            object id = dataGridView2.Rows[dataGridView2.CurrentCell.RowIndex].Cells[0].Value;
+            if (id == null) return;
+            try
+            {
+                DbSets.Manufacturer manufacturer = MainForm.Database.Manufacturers.Find(id);
+                MainForm.Database.Manufacturers.Remove(manufacturer);
+                MainForm.Database.SaveChanges();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка! Cуществуют зависимые записи.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentCell.RowIndex == -1) return;
+            object id = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value;
+            if (id == null) return;
+            try
+            {
+                DbSets.Category category = MainForm.Database.Categories.Find(id);
+                MainForm.Database.Categories.Remove(category);
+                MainForm.Database.SaveChanges();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка! Cуществуют зависимые записи.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
