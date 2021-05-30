@@ -29,6 +29,21 @@ namespace TBD_Magazin.DbSets
         public int RoleId { get; set; }
         public Role Role { get; set; }
 
+        [Column("Пароль")]
+        public string Password { get; set; }
+
+        [Column("Привелегии")]
+        public Right Rights { get; set; }
+
+        public enum Right
+        {
+            NoRights,
+            Admin,
+            Manager,
+            Seller,
+            Courier
+        }
+
 
     }
 }

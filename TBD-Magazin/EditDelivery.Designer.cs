@@ -181,6 +181,7 @@ namespace TBD_Magazin
             this.MaximizeBox = false;
             this.Name = "EditDelivery";
             this.Text = "Обновить данные о доставки";
+            this.Load += new System.EventHandler(this.EditDelivery_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

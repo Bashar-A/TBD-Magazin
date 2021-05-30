@@ -19,20 +19,25 @@ namespace TBD_Magazin
             {
                 comboBox1.Items.Add(item.Name);
             }
-
+            comboBox2.DataSource = Enum.GetValues(typeof(DbSets.Worker.Right));
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
+                DbSets.Worker.Right right;
+                Enum.TryParse<DbSets.Worker.Right>(comboBox2.SelectedValue.ToString(), out right);
                 DbSets.Worker worker = new DbSets.Worker
                 {
                     FullName = textBox1.Text,
                     PhoneNumber = textBox2.Text,
                     Address = textBox3.Text,
                     Passport = textBox4.Text,
-                    DateOfBirth = dateTimePicker1.Value
+                    DateOfBirth = dateTimePicker1.Value,
+                    Password = textBox5.Text,
+                    Rights = right
+                    
                 };
 
                 worker.Role = MainForm.Database.Roles.Single(r => r.Name == comboBox1.SelectedItem.ToString());

@@ -84,5 +84,32 @@ namespace TBD_Magazin
                 MessageBox.Show("Ошибка! Что-то пошло не так.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void EditDelivery_Load(object sender, EventArgs e)
+        {
+            switch (MainForm.User.Rights)
+            {
+                case DbSets.Worker.Right.NoRights:
+                    comboBox1.Enabled = false;
+                    comboBox2.Enabled = false;
+                    break;
+                case DbSets.Worker.Right.Admin:
+                    break;
+                case DbSets.Worker.Right.Manager:
+                    break;
+                case DbSets.Worker.Right.Seller:
+                    comboBox1.Enabled = false;
+                    comboBox2.Enabled = false;
+                    break;
+                case DbSets.Worker.Right.Courier:
+                    comboBox1.Enabled = false;
+                    comboBox2.Enabled = false;
+                    break;
+                default:
+                    comboBox1.Enabled = false;
+                    comboBox2.Enabled = false;
+                    break;
+            }
+        }
     }
 }

@@ -57,7 +57,7 @@ namespace TBD_Magazin
                     if (item.FullName == order.Client.FullName) comboBox2.SelectedItem = item.FullName;
                 }
 
-                if (delivery != null && delivery.Deliveried)
+                if (delivery != null && delivery.Deliveried && MainForm.User.Rights != DbSets.Worker.Right.Admin)
                 {
                     dateTimePicker1.Enabled = false;
                     comboBox1.Enabled = false;

@@ -37,10 +37,25 @@
     <Compile Update="EditWorker.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Orders.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Deliveries.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reports\OrdersInPeriod - Copy - Copy.Designer.cs">
+      <DependentUpon>OrdersInPeriod.Designer.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\ProductsInStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reports\OrdersInPeriod - Copy.Designer.cs">
+      <DependentUpon>OrdersInPeriod.Designer.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\OrdersInPeriod.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="WorkersAndRoles.cs">
@@ -61,6 +76,15 @@
     <Compile Update="EditClient.cs">
       <SubType>Form</SubType>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Reports\OrdersInPeriod - Copy - Copy.resx">
+      <DependentUpon>OrdersInPeriod.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Reports\OrdersInPeriod - Copy.resx">
+      <DependentUpon>OrdersInPeriod.resx</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

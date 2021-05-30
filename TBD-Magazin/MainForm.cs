@@ -13,6 +13,7 @@ namespace TBD_Magazin
     public partial class MainForm : Form
     {
         public static DbConnection Database;
+        public static DbSets.Worker User;
         public MainForm()
         {
             InitializeComponent();
@@ -20,7 +21,52 @@ namespace TBD_Magazin
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Database = new DbConnection();
+            //Database = new DbConnection();
+            switch (User.Rights)
+            {
+                case DbSets.Worker.Right.NoRights:
+                    button1.Visible = false;
+                    button2.Visible = false;
+                    button3.Visible = false;
+                    button4.Visible = false;
+                    button5.Visible = false;
+                    button6.Visible = false;
+                    button7.Visible = false;
+                    button8.Visible = false;
+                    break;
+                case DbSets.Worker.Right.Admin:
+                    break;
+                case DbSets.Worker.Right.Manager:
+                    button4.Visible = false;
+                    break;
+                case DbSets.Worker.Right.Seller:
+                    button2.Visible = false;
+                    button3.Visible = false;
+                    button4.Visible = false;
+                    button5.Visible = false;
+                    button7.Visible = false;
+                    button8.Visible = false;
+                    break;
+                case DbSets.Worker.Right.Courier:
+                    button1.Visible = false;
+                    button2.Visible = false;
+                    button3.Visible = false;
+                    button4.Visible = false;
+                    button5.Visible = false;
+                    button6.Visible = false;
+                    button8.Visible = false;
+                    break;
+                default:
+                    button1.Visible = false;
+                    button2.Visible = false;
+                    button3.Visible = false;
+                    button4.Visible = false;
+                    button5.Visible = false;
+                    button6.Visible = false;
+                    button7.Visible = false;
+                    button8.Visible = false;
+                    break;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -63,6 +109,17 @@ namespace TBD_Magazin
         {
             Deliveries deliveries = new Deliveries();
             deliveries.Show();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Report report = new Report();
+            report.Show();
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

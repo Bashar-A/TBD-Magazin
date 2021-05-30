@@ -31,6 +31,27 @@ namespace TBD_Magazin
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
             RefreshObject();
+
+            switch (MainForm.User.Rights)
+            {
+                case DbSets.Worker.Right.NoRights:
+                    button3.Visible = false;
+                    break;
+                case DbSets.Worker.Right.Admin:
+                    break;
+                case DbSets.Worker.Right.Manager:
+                    button3.Visible = false;
+                    break;
+                case DbSets.Worker.Right.Seller:
+                    button3.Visible = false;
+                    break;
+                case DbSets.Worker.Right.Courier:
+                    button3.Visible = false;
+                    break;
+                default:
+                    button3.Visible = false;
+                    break;
+            }
         }
 
         public void RefreshObject()
@@ -38,6 +59,7 @@ namespace TBD_Magazin
             dataGridView1.Rows.Clear();
             foreach (var item in MainForm.Database.Deliveries.AsNoTracking().Include(d => d.Courier).Include(d => d.Manager))
             {
+                if (MainForm.User.Rights == DbSets.Worker.Right.Courier && !item.Courier.FullName.Equals(MainForm.User.FullName)) continue;
                 dataGridView1.Rows.Add(item.id, item.Address, item.Date, item.OrderId, item.Courier?.FullName, item.Manager?.FullName, item.Deliveried ? "Да" : "Нет");
                 if (item.Deliveried) dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Green;
                 else dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;

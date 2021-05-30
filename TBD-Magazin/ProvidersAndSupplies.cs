@@ -36,6 +36,32 @@ namespace TBD_Magazin
             dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView2.BackgroundColor = System.Drawing.SystemColors.Control;
             RefreshObject2();
+
+            switch (MainForm.User.Rights)
+            {
+                case DbSets.Worker.Right.NoRights:
+                    button5.Visible = false;
+                    button6.Visible = false;
+                    break;
+                case DbSets.Worker.Right.Admin:
+                    break;
+                case DbSets.Worker.Right.Manager:
+                    button5.Visible = false;
+                    button6.Visible = false;
+                    break;
+                case DbSets.Worker.Right.Seller:
+                    button5.Visible = false;
+                    button6.Visible = false;
+                    break;
+                case DbSets.Worker.Right.Courier:
+                    button5.Visible = false;
+                    button6.Visible = false;
+                    break;
+                default:
+                    button5.Visible = false;
+                    button6.Visible = false;
+                    break;
+            }
         }
 
         public void RefreshObject1()
