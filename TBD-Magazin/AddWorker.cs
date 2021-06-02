@@ -26,6 +26,7 @@ namespace TBD_Magazin
         {
             try
             {
+                if (textBox1.Text.Length == 0 || textBox2.Text.Length == 0 || textBox3.Text.Length == 0 || textBox4.Text.Length == 0) throw new Exception();
                 DbSets.Worker.Right right;
                 Enum.TryParse<DbSets.Worker.Right>(comboBox2.SelectedValue.ToString(), out right);
                 DbSets.Worker worker = new DbSets.Worker

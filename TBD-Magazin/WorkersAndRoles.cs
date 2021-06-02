@@ -72,7 +72,7 @@ namespace TBD_Magazin
             dataGridView1.Rows.Clear();
             foreach (var item in MainForm.Database.Workers.Include(w => w.Role))
             {
-                dataGridView1.Rows.Add(item.id, item.FullName, item.DateOfBirth.ToShortDateString(), item.PhoneNumber, item.Address, item.PhoneNumber, item.Role.Name);
+                dataGridView1.Rows.Add(item.id, item.FullName, item.DateOfBirth.ToShortDateString(), item.PhoneNumber, item.Address, item.Passport, item.Role.Name);
             }
         }
 
