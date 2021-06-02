@@ -112,7 +112,7 @@ namespace TBD_Magazin
                 foreach (var item in productQuantity)
                 {
                     DbSets.Product product = MainForm.Database.Products.FirstOrDefault(p => p.Name == item.Key);
-                    product.Quantity = item.Value;
+                    //product.Quantity = item.Value;
                 }
                 foreach (var item in supplyProducts)
                 {

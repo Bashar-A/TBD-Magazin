@@ -78,7 +78,7 @@ namespace TBD_Magazin
                 foreach (var item in supplyProducts)
                 {
                     DbSets.Product product = MainForm.Database.Products.Find(item.ProductId);
-                    product.Quantity += item.Quantity;
+                    //product.Quantity += item.Quantity;
                     MainForm.Database.SupplyProducts.Add(item);
                 }
 
@@ -90,8 +90,12 @@ namespace TBD_Magazin
             {
                 if (supply.id != 0)
                 {
-                    MainForm.Database.Supplies.Remove(supply);
-                    MainForm.Database.SaveChanges();
+                    try
+                    {
+                        MainForm.Database.Supplies.Remove(supply);
+                        MainForm.Database.SaveChanges();
+                    }
+                    catch (Exception) { }
                 }
                 MessageBox.Show("Ошибка! Что-то пошло не так.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

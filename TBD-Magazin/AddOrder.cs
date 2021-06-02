@@ -41,14 +41,22 @@ namespace TBD_Magazin
             DbSets.Order order = new DbSets.Order();
             try
             {
+                int sum = 0;
                 productQuantity = new Dictionary<string, int>();
                 productPriceQuantity = new Dictionary<string, int>();
                 orderProducts = new List<DbSets.OrderProduct>();
 
+                if (label8 == null) return;
+                label8.Text = "0";
+                foreach (var item in productRows)
+                {
+                    sum += Convert.ToInt32(item.RowTextBoxPrice.Text) * (int)item.RowTextBoxQuantity.Value;
+                }
+                label8.Text = sum.ToString();
                 order = new DbSets.Order
                 {
                     Date = dateTimePicker1.Value,
-                    OrderSum = Convert.ToInt32(label8.Text)
+                    OrderSum = sum
                 };
                 if (comboBox1.SelectedIndex == -1 || comboBox2.SelectedIndex == -1) throw new Exception();
                 order.SellerId = MainForm.Database.Workers.FirstOrDefault(w => w.FullName == comboBox1.SelectedItem.ToString()).id;
@@ -86,7 +94,7 @@ namespace TBD_Magazin
                 foreach (var item in productQuantity)
                 {
                     DbSets.Product product = MainForm.Database.Products.FirstOrDefault(p => p.Name == item.Key);
-                    product.Quantity = item.Value;
+                    //product.Quantity = item.Value;
                 }
                 foreach (var item in orderProducts)
                 {
@@ -107,17 +115,32 @@ namespace TBD_Magazin
                 MessageBox.Show("Заказ добавлен!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Check check = new Check(order.id);
                 check.Show();
+                //ClearOrders();
                 this.Close();
             }
             catch (Exception)
             {
                 if (order.id != 0)
                 {
-                    MainForm.Database.Orders.Remove(order);
-                    MainForm.Database.SaveChanges();
+                    ClearOrders();
                 }
                 MessageBox.Show("Ошибка! Что-то пошло не так.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        void ClearOrders()
+        {
+            try
+            {
+                List<DbSets.Order> orders = MainForm.Database.Orders.ToList();
+                foreach (var item in orders)
+                {
+                    DbSets.OrderProduct orderProduct = MainForm.Database.OrderProducts.FirstOrDefault(o => o.OrderId == item.id);
+                    if (orderProduct == null) MainForm.Database.Orders.Remove(item);
+                }
+                MainForm.Database.SaveChanges();
+            }
+            catch (Exception) { }
         }
 
         private void TryAddOrUpdate(string key, int value, int valueToAdd, bool plus = true)
